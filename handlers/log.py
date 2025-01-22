@@ -77,19 +77,19 @@ async def process_name(message: Message, state: FSMContext):
         await state.clear()
         if remaining <= 0:
             recomended_food = random.sample(low_calories_food, k=3)
-            await message.answer(f'**Ой ой ой, кажется вы превысили свою дневную норму калорий.** \n\n' 
+            await message.answer(f'😔 Кажется, вы превысили свою дневную норму калорий. \n\n' 
                                  f'Вот несколько низкокалорийных продуктов, которыми вы можете перекусить:\n'
                                  f'{recomended_food[0]} - {await get_food_info(recomended_food[0])} ккал на 100 г.\n'
                                  f'{recomended_food[1]} - {await get_food_info(recomended_food[1])} ккал на 100 г.\n'
                                  f'{recomended_food[2]} - {await get_food_info(recomended_food[2])} ккал на 100 г.\n',
-                                 parse_mode="MarkdownV2")
+                                 )
         elif remaining < user_data['calorie_goal']*0.1:
-            await message.answer(f'**Ой, кажется вы скоро достигните своей нормы калорий.**' 
+            await message.answer(f'😨 Кажется, вы скоро достигните своей нормы калорий.' 
                                  f'Вот несколько низкокалорийных продуктов, которыми вы можете перекусить:\n'
                                  f'{recomended_food[0]} - {await get_food_info(recomended_food[0])} ккал на 100 г.\n'
                                  f'{recomended_food[1]} - {await get_food_info(recomended_food[1])} ккал на 100 г.\n'
                                  f'{recomended_food[2]} - {await get_food_info(recomended_food[2])} ккал на 100 г.\n',
-                                 parse_mode="MarkdownV2")
+                                 )
 
     except ValueError:
         await message.answer("Пожалуйста, введите корректный вес.")
