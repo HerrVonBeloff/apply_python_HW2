@@ -36,7 +36,7 @@ async def cmd_help(message: Message):
         " **Помощь:**\n"
         "- /help — Показать список команд."
     )
-    await message.answer(help_text)
+    await message.answer(help_text, parse_mode="MarkdownV2")
 
 
 # Команда /set_profile
@@ -137,6 +137,6 @@ async def process_city(message: Message, state: FSMContext):
     })
 
     await state.clear()  # Завершаем состояние
-    await message.answer(f"Профиль успешно настроен!\n"
+    await message.answer(f"Профиль успешно настроен!\n\n"
                         f"Ваша дневная норма воды: {water_goal} мл\n"
                         f"Ваша дневная норма калорий: {calorie_goal} ккал")

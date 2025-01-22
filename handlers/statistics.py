@@ -30,7 +30,7 @@ async def check_progress(message: Message):
 
     # Формируем сообщение с прогрессом
     progress_message = (
-        "📊 Прогресс:\n\n"
+        "📊 **Прогресс:**\n\n"
         f"Вода:\n"
         f"- Выпито: {logged_water} мл из {water_goal} мл.\n"
         f"- Осталось: {remaining_water} мл.\n\n"
@@ -40,7 +40,7 @@ async def check_progress(message: Message):
         f"- Баланс: {remaining_calories} ккал."
     )
 
-    await message.answer(progress_message)
+    await message.answer(progress_message, parse_mode="MarkdownV2")
 
 
 @router_st.message(Command("end_day"))
@@ -61,11 +61,12 @@ async def end_day(message: Message):
 
     # Выводим итоги за сегодня
     await message.answer(
-        f"Итоги за день #{user_data['day_counter'] - 1}:\n"
+        f"**Итоги за день #{user_data['day_counter']}:**\n"
         f"🌊 Выпито воды: {total_water} мл\n"
         f"🍽️ Потреблено калорий: {total_calories} ккал\n"
         f"🔥 Сожжено калорий: {total_burned} ккал\n\n"
-        f"Используйте /show_water_graph или /show_calories_graph для построения графиков за последние 7 дней."
+        f"Используйте /show_water_graph или /show_calories_graph для построения графиков за последние 7 дней.",
+        parse_mode="MarkdownV2"
     )
 
 @router_st.message(Command("show_water_graph"))
