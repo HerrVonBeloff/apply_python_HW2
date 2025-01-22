@@ -3,6 +3,7 @@ from aiogram import Bot, Dispatcher
 from aiohttp import web
 from aiogram.types import BotCommand
 import os
+from middlewares import LoggingMiddleware
 from config import TOKEN
 from handlers.profile import router_profile
 from handlers.log import router_log
