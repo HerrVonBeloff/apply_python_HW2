@@ -32,7 +32,7 @@ async def set_bot_commands(bot: Bot):
 dp.include_router(router_profile)
 dp.include_router(router_log)
 dp.include_router(router_st)
-
+dp.update.middleware(LoggingMiddleware())
 # async def main():
 #     print("Бот запущен!")
 #     await set_bot_commands(bot)
