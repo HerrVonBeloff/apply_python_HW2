@@ -1,6 +1,8 @@
 import asyncio
 from aiogram import Bot, Dispatcher
+from aiohttp import web
 from aiogram.types import BotCommand
+import os
 from config import TOKEN
 from handlers.profile import router_profile
 from handlers.log import router_log
@@ -30,10 +32,29 @@ dp.include_router(router_profile)
 dp.include_router(router_log)
 dp.include_router(router_st)
 
-async def main():
-    print("Бот запущен!")
-    await set_bot_commands(bot)
+# async def main():
+#     print("Бот запущен!")
+#     await set_bot_commands(bot)
+#     await dp.start_polling(bot)
+
+async def handle(request):
+    return web.Response(text="Бот запущен")
+
+app = web.Application()
+app.add_routes([web.get('/', handle)])
+
+async def start_bot():
     await dp.start_polling(bot)
+
+async def start_app():
+    runner = web.AppRunner(app)
+    await runner.setup()
+    port = int(os.getenv("PORT", 10000))  # Используем порт из переменной окружения
+    site = web.TCPSite(runner, '0.0.0.0', port)
+    await site.start()
+
+async def main():
+    await asyncio.gather(start_bot(), start_app())
 
 if __name__ == "__main__":
     asyncio.run(main())
